@@ -1,7 +1,17 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Navbar from '../../components/navbar'
-import Img1 from '../../public/img/img1.jpg'
+import HomeImg from '../../public/img/homeImgFirst.png'
+import Newcomers from '../../public/img/forNewcomers.svg'
+import Business from '../../public/img/forBusiness.svg'
+import TheEconomist from '../../public/img/the-economist.svg'
+import NyTimes from '../../public/img/ny-times.svg'
+import Inc from '../../public/img/inc.svg'
+import AmericaBank from '../../public/img/american-bank.svg'
+import Cnbc from '../../public/img/cnbc-stacked.svg'
+import FastComapny from '../../public/img/fast-company.svg'
+import LegupCredit from '../../public/img/aboutLegupCredit.png'
+import LegupConsumerCredit from '../../public/img/legupCreditConsumer.png'
 
 export default function Home() {
 
@@ -16,9 +26,7 @@ export default function Home() {
                     <p class="text-xl pl-20">Millions of consumers are left out due to gaps in the traditional credit system. We’re building a financially inclusive world using trusted data and analytics.</p>
                 </div>
                 <div class="basis-1/2 h-max">
-                    {/* <Image
-                            src='/img1.jpg'
-                        /> */}
+                <Image src={HomeImg} alt="" />
                 </div>
             </div>
             <div class="flex flex-col">
@@ -32,11 +40,11 @@ export default function Home() {
                     </a>
                 </div>
             </div>
-            <div id='newscomers' class="flex flex-row mb-5 mt-20">
+            <div id='newscomers' class="flex flex-row mb-5 mt-40">
                 <div class="flex flex-row basis-1/2 h-max pl-40 pr-10 pb-5 border-r-2 border-gray-400">
                     <div class="flex flex-row">
                         <div class="basis-1/6">
-                            <p>Image</p>
+                        <Image src={Newcomers} alt="" />
                         </div>
                         <div class="basis-5/6">
                             <h6 class="text-xs mb-3">
@@ -58,7 +66,7 @@ export default function Home() {
                 </div>
                 <div class="flex flex-row basis-1/2 h-max pr-40 pl-10 pb-5">
                     <div class="basis-1/6">
-                        <p>Image</p>
+                    <Image src={Business} alt="" />
                     </div>
                     <div class="basis-5/6">
                         <h6 class="text-xs mb-3">
@@ -82,15 +90,25 @@ export default function Home() {
                 <div class="flex justify-center">
                     <h3 class="text-2xl">As featured in:</h3>
                 </div>
-                <div class="flex justify-between mt-20">
-                    <div>01</div>
-                    <div>02</div>
-                    <div>03</div>
-                    <div>04</div>
-                    <div>05</div>
-                    <div>06</div>
-                    <div>07</div>
-                    <div>08</div>
+                <div class="flex justify-between mt-10">
+                    <div>
+                        <a href='https://www.economist.com/' target="_blank"><Image src={TheEconomist} /></a>
+                    </div>
+                    <div>
+                    <a href='https://www.nytimes.com/' target="_blank"><Image src={NyTimes} /></a>
+                    </div>
+                    <div>
+                    <a href='https://www.inc.com/' target="_blank"><Image src={Inc} /></a>
+                    </div>
+                    <div>
+                    <a href='https://www.americanbanker.com/' target="_blank"><Image src={AmericaBank} /></a>
+                    </div>
+                    <div>
+                    <a href='https://www.cnbc.com/' target="_blank"><Image src={Cnbc} /></a>
+                    </div>
+                    <div>
+                    <a href='https://www.fastcompany.com/' target="_blank"><Image src={FastComapny} /></a>
+                    </div>
                 </div>
             </div>
             <div class="flex flex-row mb-5 mt-60">
@@ -98,7 +116,7 @@ export default function Home() {
                     <div class="flex flex-row">
                         <div>
                             <h6 class="text-xs mb-3">
-                                ABOUT NOVA CREDIT
+                                ABOUT LEGUP CREDIT
                             </h6>
                             <h1 class="text-6xl mb-5">
                                 We’re building a fair and inclusive financial system for the world
@@ -107,12 +125,12 @@ export default function Home() {
                     </div>
                 </div>
                 <div class="flex flex-row basis-1/2 h-max pr-40 pl-10 pb-5">
-                    Image
+                    <Image src={LegupCredit} />
                 </div>
             </div>
             <div class="flex flex-row mb-5 mt-60">
                 <div class="flex flex-row basis-1/2 h-max pl-40 pr-10 pb-5">
-                    Image
+                    <Image src={LegupConsumerCredit} />
                 </div>
                 <div class="flex flex-row basis-1/2 h-max pr-40 pl-10 pb-5">
                     <div>
@@ -140,7 +158,7 @@ export default function Home() {
             <div class="mt-20">
                 <hr />
             </div>
-            <div class="mt-10 pl-40 pr-60">
+            <div class="mt-10 pl-40 pr-60 mb-20">
                 <div class="flex justify-between pr-80">
                     <div class="flex flex-col">
                         <h6 class="mb-4 font-bold">LegUp</h6>
@@ -167,6 +185,9 @@ export default function Home() {
                         <div>Disputes</div>        
                     </div>
                 </div>
+            </div>
+            <div>
+                <hr/>
             </div>
         </>
     )
