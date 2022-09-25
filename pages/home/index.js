@@ -17,7 +17,7 @@ export default function Home() {
 
     return (
         <>
-            <div>
+            {/* <div>
                 <Navbar />
             </div>
             <div class="flex flex-row mb-4">
@@ -188,16 +188,39 @@ export default function Home() {
             </div>
             <div>
                 <hr/>
+            </div> */}
+
+            <Navbar />
+
+            <div>
+                <section className="h-screen" id="section1">
+                    <div className="flex flex-col py-6 md:flex-row">
+                        <div className="md:basis-1/2">
+                            <h1 class="text-3xl px-6 py-6 md:text-5xl md:px-8 md:py-8 text-black font-bold">We connect consumers and lenders to expand access to credit</h1>
+                            <p class="text-lg px-6 py-6 md:text-lg md:px-8 md:py-8">Millions of consumers are left out due to gaps in the traditional credit system. We’re building a financially inclusive world using trusted data and analytics.</p>
+                        </div>
+                        <div className="md:basis-1/2 px-6 py-6 h-screen justify-center md:px-4 md:py-4">
+                            <Image
+                                src={HomeImg}
+                            />
+                        </div>
+                    </div>
+                </section>
+                {/* <section className="h-screen" id="section2">
+                    <div className="flex flex-row">
+                        <div className="md:basis-1/2">
+                            <h1 class="text-sm px-4 py-4 md:text-5xl md:px-8 md:py-8 text-black font-bold">We connect consumers and lenders to expand access to credit</h1>
+                            <p class="text-sm px-4 py-4 md:text-lg md:px-8 md:py-8">Millions of consumers are left out due to gaps in the traditional credit system. We’re building a financially inclusive world using trusted data and analytics.</p>
+                        </div>
+                        <div className="md:basis-1/2 px-2 py-24 w-80 h-screen justify-center md:px-4 md:py-4">
+                            <Image
+                                src={HomeImg}
+                                
+                            />
+                        </div>
+                    </div>
+                </section> */}
             </div>
-
-            {/* <Navbar/>
-
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-            when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-            and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p> */}
         </>
     )
 }

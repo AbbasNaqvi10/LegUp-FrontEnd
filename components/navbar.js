@@ -1,102 +1,77 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import Image from 'next/image';
-import Logo from '../public/img/logo.png'
-import { useState } from 'react';
+import { useState } from 'react'
 
+function NavLink({ to, children }) {
+    return <a href={to} className={`mx-4`}>
+        {children}
+    </a>
+}
+
+function MobileNav({ open, setOpen }) {
+    return (
+        <div className={`absolute top-0 left-0 h-screen w-screen bg-white transform ${open ? "-translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out filter drop-shadow-md `}>
+            <div className="flex items-center justify-center filter drop-shadow-md bg-white h-20"> {/*logo container*/}
+                <a className="text-xl font-semibold" href="/">LegUp</a>
+            </div>
+            <div className="flex flex-col ml-4">
+                <a className="text-xl font-medium my-4" href="/" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+                    Home
+                </a>
+                <a className="text-xl font-medium my-4" href="#" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+                    Lender
+                </a>
+                <a className="text-xl font-medium my-4" href="#" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+                    Consumer
+                </a>
+                <a className="text-xl font-normal my-4" href="#" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+                    About US
+                </a>
+            </div>
+        </div>
+    )
+}
 
 export default function Navbar() {
-    const [navbar, setNavbar] = useState(false);
+
+    const [open, setOpen] = useState(false)
     return (
-        <div>
-            <Head>
-                <title>LegUp</title>
-                {/* <meta
-                    name="description"
-                    content="Create Next JS Responsive Menu with Tailwind CSS"
-                /> */}
-                <link rel="icon" href="./img/logo.png" />
-            </Head>
-            <nav className="w-full ">
-                <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
-                    <div>
-                        <div className="flex items-center justify-between py-3 md:py-4 md:block">
-                            <a href="/" >
-                                <h1 className='xs:text-black sm:text-green-900 md:text-red-900 lg:text-'>LegUp</h1>
-                                {/* <Image
-                                src={Logo}
-                                alt='LegUp'
-                                /> */}
-                            </a>
-                            <div className="md:hidden">
-                                <button
-                                    className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
-                                    onClick={() => setNavbar(!navbar)}
-                                >
-                                    {navbar ? (
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="w-6 h-6 text-blue-700"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
-                                    ) : (
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="w-6 h-6 text-blue-700"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            strokeWidth={2}
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M4 6h16M4 12h16M4 18h16"
-                                            />
-                                        </svg>
-                                    )}
-                                </button>
-                            </div>
+        <>
+            <div className="flex md:order-1 filter  justify-between bg-white px-2 py-2 md:px-4 md:py-4 md:h-20 items-center">
+                <nav className="flex w-11/12 filter md:px-4 md:py-4 md:h-20 items-center">
+                    <MobileNav open={open} setOpen={setOpen} />
+                    <div className="md:w-1/12 flex items-center">
+                        <a className="sm:text-2xl px-2 text-xl font-semibold" href="/">LegUp</a>
+                    </div>
+                    <div className="flex md:w-10/12 md:justify-center justify-start items-center">
+
+                        <div className="z-50 w-10 flex relative h-8 flex-col justify-between items-center md:hidden" onClick={() => {
+                            setOpen(!open)
+                        }}>
+                            {/* hamburger button */}
+                            <span className={`h-1 w-full bg-black rounded-lg transform transition duration-300 ease-in-out ${open ? "rotate-45 translate-y-3.5" : ""}`} />
+                            <span className={`h-1 w-full bg-black rounded-lg transition-all duration-300 ease-in-out ${open ? "w-0" : "w-full"}`} />
+                            <span className={`h-1 w-full bg-black rounded-lg transform transition duration-300 ease-in-out ${open ? "-rotate-45 -translate-y-3.5" : ""}`} />
+                        </div>
+
+                        <div className="hidden md:flex">
+                            <NavLink to="/">
+                                Home
+                            </NavLink>
+                            <NavLink to="#">
+                                Lander
+                            </NavLink>
+                            <NavLink to="#">
+                                Consumer
+                            </NavLink>
+                            <NavLink to="#">
+                                About US
+                            </NavLink>
                         </div>
                     </div>
-                    <div>
-                        <div
-                            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? 'block' : 'hidden'
-                                }`}
-                        >
-                            <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                                <li className="text-blue-700">
-                                    <Link href="/">
-                                        <a>Home</a>
-                                    </Link>
-                                </li>
-                                <li className="text-blue-700">
-                                    <Link href="#">
-                                        <a>Lander</a>
-                                    </Link>
-                                </li>
-                                <li className="text-blue-700">
-                                    <Link href="#">
-                                        <a>Consumer</a>
-                                    </Link>
-                                </li>
-                                <li className="text-blue-700">
-                                    <Link href="#">
-                                        <a>About US</a>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                </nav>
+                <div class="flex md:order-2 justify-center">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg md:h-14 md:text-sm md:rounded-2xl text-xs px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started</button>
                 </div>
-            </nav>
-        </div>
-    );
+            </div>
+        </>
+    )
 }
