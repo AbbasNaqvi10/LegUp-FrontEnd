@@ -17,7 +17,7 @@ export default function Home() {
 
     return (
         <>
-            <div>
+            {/* <div>
                 <Navbar />
             </div>
             <div class="flex flex-row mb-4">
@@ -188,6 +188,174 @@ export default function Home() {
             </div>
             <div>
                 <hr/>
+            </div> */}
+
+            <Navbar />
+
+            <div>
+                <section className="h-screen" id="section1">
+                    <div className="flex flex-col py-6 md:flex-row">
+                        <div className="md:basis-1/2">
+                            <h1 className="text-3xl px-6 py-6 md:text-5xl md:px-8 md:py-8 text-black font-bold">We connect consumers and lenders to expand access to credit</h1>
+                            <p className="text-lg px-6 py-6 md:text-lg md:px-8 md:py-8">Millions of consumers are left out due to gaps in the traditional credit system. We’re building a financially inclusive world using trusted data and analytics.</p>
+                        </div>
+                        <div className="md:basis-1/2 px-6 py-4 justify-center md:px-4 md:py-4">
+                            <Image
+                                src={HomeImg}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex justify-center text-sm md:text-2xl">Explore our options for newcomers and businesses.</div>
+                    <div className="flex justify-center">
+                        <a href="#section2">
+                            <svg fill="none" viewBox="0 0 26 26" strokeWidth={2}
+                                stroke="rgb(37 99 235)" className="animate-bounce  cursor-pointer w-6 md:w-10 md:my-4">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </a>
+                    </div>
+                </section>
+                <section className="h-screen" id="section2">
+                    <div className="flex flex-col py-6">
+                        <div className="columns-2" >
+                            <div className='columns-2'>
+                                <div className='w-full ml-4'>
+                                    <Image
+                                        src={Newcomers}
+                                        alt=""
+                                        className='w-4'
+                                    />
+                                    <h6 className='text-sm'>
+                                    FOR NEWCOMERS
+                                    </h6>
+                                </div>
+                                <div className=''>
+                                    
+                                    {/* <h6 class="text-xs mb-3">
+                                        
+                                    </h6>
+                                    <h1 class="text-sm mb-3">
+                                        Take your international credit history with you when you move
+                                    </h1>
+                                    <p class="text-xs">
+                                        Access financial products like credit cards, student loans, mobile phone financing, and more.
+                                    </p>
+                                    <div class="mt-3">
+                                        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                                            Join Us
+                                        </button>
+                                    </div> */}
+                                </div>
+                            </div>
+                            {/* <div class="">
+                                <div class="basis-1/6">
+
+                                </div>
+                                <div class="basis-5/6">
+                                    <h6 class="text-xs mb-3">
+                                        FOR NEWCOMERS
+                                    </h6>
+                                    <h1 class="text-4xl mb-5">
+                                        Take your international credit history with you when you move
+                                    </h1>
+                                    <p class="text-base">
+                                        Access financial products like credit cards, student loans, mobile phone financing, and more.
+                                    </p>
+                                    <div class="mt-5">
+                                        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                                            Join Us
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> */}
+                            <div>
+                                <div className='columns-2'>
+                                    <div className='w-3/12 ml-4'>
+                                        <Image
+                                            src={Business}
+                                            alt=""
+                                            className='px-6 py-6'
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* <div className="md:basis-1/2">
+                            <h1 class="text-3xl px-6 py-6 md:text-5xl md:px-8 md:py-8 text-black font-bold">We connect consumers and lenders to expand access to credit</h1>
+                            <p class="text-lg px-6 py-6 md:text-lg md:px-8 md:py-8">Millions of consumers are left out due to gaps in the traditional credit system. We’re building a financially inclusive world using trusted data and analytics.</p>
+                        </div>
+                        <div className="md:basis-1/2 px-6 py-6 h-screen justify-center md:px-4 md:py-4">
+                            <Image
+                                src={HomeImg}
+                            />
+                        </div> */}
+                    </div>
+                </section>
+                {/*  <section className="h-screen" id="section3">
+                    <div className="flex flex-col py-6 md:flex-row">
+                        <div className="md:basis-1/2">
+                            <h1 class="text-3xl px-6 py-6 md:text-5xl md:px-8 md:py-8 text-black font-bold">We connect consumers and lenders to expand access to credit</h1>
+                            <p class="text-lg px-6 py-6 md:text-lg md:px-8 md:py-8">Millions of consumers are left out due to gaps in the traditional credit system. We’re building a financially inclusive world using trusted data and analytics.</p>
+                        </div>
+                        <div className="md:basis-1/2 px-6 py-6 h-screen justify-center md:px-4 md:py-4">
+                            <Image
+                                src={HomeImg}
+                            />
+                        </div>
+                    </div>
+                </section>
+                <section className="h-screen" id="section4">
+                    <div className="flex flex-col py-6 md:flex-row">
+                        <div className="md:basis-1/2">
+                            <h1 class="text-3xl px-6 py-6 md:text-5xl md:px-8 md:py-8 text-black font-bold">We connect consumers and lenders to expand access to credit</h1>
+                            <p class="text-lg px-6 py-6 md:text-lg md:px-8 md:py-8">Millions of consumers are left out due to gaps in the traditional credit system. We’re building a financially inclusive world using trusted data and analytics.</p>
+                        </div>
+                        <div className="md:basis-1/2 px-6 py-6 h-screen justify-center md:px-4 md:py-4">
+                            <Image
+                                src={HomeImg}
+                            />
+                        </div>
+                    </div>
+                </section>
+                <section className="h-screen" id="section5">
+                    <div className="flex flex-col py-6 md:flex-row">
+                        <div className="md:basis-1/2">
+                            <h1 class="text-3xl px-6 py-6 md:text-5xl md:px-8 md:py-8 text-black font-bold">We connect consumers and lenders to expand access to credit</h1>
+                            <p class="text-lg px-6 py-6 md:text-lg md:px-8 md:py-8">Millions of consumers are left out due to gaps in the traditional credit system. We’re building a financially inclusive world using trusted data and analytics.</p>
+                        </div>
+                        <div className="md:basis-1/2 px-6 py-6 h-screen justify-center md:px-4 md:py-4">
+                            <Image
+                                src={HomeImg}
+                            />
+                        </div>
+                    </div>
+                </section>
+                <section className="h-screen" id="section6">
+                    <div className="flex flex-col py-6 md:flex-row">
+                        <div className="md:basis-1/2">
+                            <h1 class="text-3xl px-6 py-6 md:text-5xl md:px-8 md:py-8 text-black font-bold">We connect consumers and lenders to expand access to credit</h1>
+                            <p class="text-lg px-6 py-6 md:text-lg md:px-8 md:py-8">Millions of consumers are left out due to gaps in the traditional credit system. We’re building a financially inclusive world using trusted data and analytics.</p>
+                        </div>
+                        <div className="md:basis-1/2 px-6 py-6 h-screen justify-center md:px-4 md:py-4">
+                            <Image
+                                src={HomeImg}
+                            />
+                        </div>
+                    </div>
+                </section>
+                <section className="h-screen" id="section7">
+                    <div className="flex flex-col py-6 md:flex-row">
+                        <div className="md:basis-1/2">
+                            <h1 class="text-3xl px-6 py-6 md:text-5xl md:px-8 md:py-8 text-black font-bold">We connect consumers and lenders to expand access to credit</h1>
+                            <p class="text-lg px-6 py-6 md:text-lg md:px-8 md:py-8">Millions of consumers are left out due to gaps in the traditional credit system. We’re building a financially inclusive world using trusted data and analytics.</p>
+                        </div>
+                        <div className="md:basis-1/2 px-6 py-6 h-screen justify-center md:px-4 md:py-4">
+                            <Image
+                                src={HomeImg}
+                            />
+                        </div>
+                    </div>
+                </section> */}
             </div>
         </>
     )
