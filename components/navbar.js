@@ -1,36 +1,77 @@
-import Link from "next/link";
+import { useState } from 'react'
+
+function NavLink({ to, children }) {
+    return <a href={to} className={`mx-4`}>
+        {children}
+    </a>
+}
+
+function MobileNav({ open, setOpen }) {
+    return (
+        <div className={`absolute top-0 left-0 h-screen w-screen bg-white transform ${open ? "-translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out filter drop-shadow-md `}>
+            <div className="flex items-center justify-center filter drop-shadow-md bg-white h-20"> {/*logo container*/}
+                <a className="text-xl font-semibold" href="/">LegUp</a>
+            </div>
+            <div className="flex flex-col ml-4">
+                <a className="text-xl font-medium my-4" href="/" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+                    Home
+                </a>
+                <a className="text-xl font-medium my-4" href="#" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+                    Lender
+                </a>
+                <a className="text-xl font-medium my-4" href="#" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+                    Consumer
+                </a>
+                <a className="text-xl font-normal my-4" href="#" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+                    About US
+                </a>
+            </div>
+        </div>
+    )
+}
 
 export default function Navbar() {
+
+    const [open, setOpen] = useState(false)
     return (
         <>
-            <nav className="bg-white border-100 px-2 sm:px-4 py-2.5">
-                <div className="container flex flex-wrap justify-between items-center mx-auto">
-                    <h1 className="text-blue bold">LegUp</h1>
-                    <div className="flex md:order-2">
-                        <a href="/account/login" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Join Us</a>
-                        <button data-collapse-toggle="navbar-cta" type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
-                            <span className="sr-only">Open main menu</span>
-                            <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                        </button>
+            <div className="flex md:order-1 filter  justify-between bg-white px-2 py-2 md:px-4 md:py-4 md:h-20 items-center">
+                <nav className="flex w-11/12 filter md:px-4 md:py-4 md:h-20 items-center">
+                    <MobileNav open={open} setOpen={setOpen} />
+                    <div className="md:w-1/12 flex items-center">
+                        <a className="sm:text-2xl px-2 text-xl font-semibold" href="/">LegUp</a>
                     </div>
-                    <div className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-                        <ul className="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
-                            <li>
-                                <a href="/home" className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Home</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-blue md:dark:hover:bg-transparent dark:border-gray-700">For Landers</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-blue md:dark:hover:bg-transparent dark:border-gray-700">For Consumers</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-blue md:dark:hover:bg-transparent dark:border-gray-700">About Us</a>
-                            </li>
-                        </ul>
+                    <div className="flex md:w-10/12 md:justify-center justify-start items-center">
+
+                        <div className="z-50 w-10 flex relative h-8 flex-col justify-between items-center md:hidden" onClick={() => {
+                            setOpen(!open)
+                        }}>
+                            {/* hamburger button */}
+                            <span className={`h-1 w-full bg-black rounded-lg transform transition duration-300 ease-in-out ${open ? "rotate-45 translate-y-3.5" : ""}`} />
+                            <span className={`h-1 w-full bg-black rounded-lg transition-all duration-300 ease-in-out ${open ? "w-0" : "w-full"}`} />
+                            <span className={`h-1 w-full bg-black rounded-lg transform transition duration-300 ease-in-out ${open ? "-rotate-45 -translate-y-3.5" : ""}`} />
+                        </div>
+
+                        <div className="hidden md:flex">
+                            <NavLink to="/">
+                                Home
+                            </NavLink>
+                            <NavLink to="#">
+                                Lander
+                            </NavLink>
+                            <NavLink to="#">
+                                Consumer
+                            </NavLink>
+                            <NavLink to="#">
+                                About US
+                            </NavLink>
+                        </div>
                     </div>
+                </nav>
+                <div class="flex md:order-2 justify-center">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg md:h-14 md:text-sm md:rounded-2xl text-xs px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started</button>
                 </div>
-            </nav>
+            </div>
         </>
     )
 }

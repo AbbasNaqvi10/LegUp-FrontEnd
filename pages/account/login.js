@@ -1,6 +1,8 @@
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
+import axios from 'axios';
 import { useState, useEffect } from 'react'
+import Router from 'next/router'
 
 export default function Login() {
 
@@ -16,20 +18,19 @@ export default function Login() {
         }
         console.log(setUser)
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            mode: 'no-cors',
-            body: JSON.stringify(setUser)
-        };
-        setLoading(true)
-        console.log(requestOptions.body)
-        const response = await fetch(endpoint, requestOptions)
-        console.log(response)
-        const result = await response.json()
-        setLoading(false)
-        alert(`Is this your full name: ${result.data}`)
-        console.log(data)
+        axios.post('http://localhost:8080/api/auth/signin', {
+            username: setUser.username,
+            password: setUser.password
+        })
+            .then(function (response) {
+                setLoading(true)
+                console.log(response);
+                setLoading(false)
+                Router.push('/dashboard')
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     if (isLoading) return <p>Loading...</p>
