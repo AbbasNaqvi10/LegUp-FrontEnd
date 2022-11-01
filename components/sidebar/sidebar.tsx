@@ -45,12 +45,12 @@ export const SidebarWrapper = () => {
         <Flex direction={"column"} justify={"between"} css={{ height: "100%" }}>
           <Sidebar.Body className="body sidebar">
             <SidebarItem
-              title="Dashboard"
+              title="Overview"
               icon={<HomeIcon />}
               isActive={router.pathname === "/dashboard"}
               href="/dashboard"
             />
-            <SidebarMenu title="Main Menu">
+            <SidebarMenu title="">
               {/* <SidebarItem
                 isActive={router.pathname === "/accounts"}
                 title="Accounts"
@@ -67,7 +67,11 @@ export const SidebarWrapper = () => {
                 items={["Apple", "Facebook", "Amazon"]}
                 title="Social Data"
               />
-
+              <SidebarItem
+                isActive={router.pathname === "/developers"}
+                title="Financial Data"
+                icon={<DevIcon />}
+              />
               <SidebarItem
                 isActive={router.pathname === "/customers"}
                 title="Consumers"
@@ -85,13 +89,9 @@ export const SidebarWrapper = () => {
               />
             </SidebarMenu>
 
-            <SidebarMenu title="General">
+            {/* <SidebarMenu title="General">
+
               <SidebarItem
-                isActive={router.pathname === "/developers"}
-                title="Financial Data"
-                icon={<DevIcon />}
-              />
-              {/* <SidebarItem
                 isActive={router.pathname === "/view"}
                 title="View Test Data"
                 icon={<ViewIcon />}
@@ -100,8 +100,8 @@ export const SidebarWrapper = () => {
                 isActive={router.pathname === "/settings"}
                 title="Settings"
                 icon={<SettingsIcon />}
-              /> */}
-            </SidebarMenu>
+              /> 
+            </SidebarMenu> */}
 
             {/* <SidebarMenu title="Updates">
               <SidebarItem

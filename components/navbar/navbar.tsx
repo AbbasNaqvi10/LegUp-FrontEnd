@@ -131,7 +131,7 @@ export const NavbarWrapper = ({ children }: Props) => {
             }}
           >
             {router.pathname === "/dashboard" ? (
-              <h2>Dashboad</h2>
+              <h2>Overview</h2>
             ) : (
               <h2>Home</h2>
             )}

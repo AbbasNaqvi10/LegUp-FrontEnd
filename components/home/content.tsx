@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Link } from "@nextui-org/react";
+import { Text, Link, Button } from "@nextui-org/react";
 import { Box } from "../styles/box";
 import dynamic from "next/dynamic";
 import { Flex } from "../styles/flex";
@@ -10,6 +10,8 @@ import { CardBalance2 } from "./card-balance2";
 import { CardBalance3 } from "./card-balance3";
 import { CardAgents } from "./card-agents";
 import { CardTransactions } from "./card-transactions";
+import { CollapseItems } from "../sidebar/collapse-items";
+import FileUpload from "../fileUpload/file-upload";
 
 const Chart = dynamic(
   () => import("../charts/steam").then((mod) => mod.Steam),
@@ -35,6 +37,24 @@ export const Content = () => (
       }}
       justify={"center"}
     >
+      <Flex
+        css={{
+          px: "$12",
+          mt: "$8",
+          width: "100%",
+          "@xsMax": { px: "$10" },
+        }}
+        direction={"row"}
+      >
+        <Box
+        css={{
+          marginLeft: "auto",
+        }}
+        >
+        <FileUpload />
+        </Box>
+      </Flex>
+
       <Flex
         css={{
           px: "$12",
