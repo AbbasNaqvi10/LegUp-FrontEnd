@@ -76,6 +76,8 @@ export default function Login() {
         axios.post('http://localhost:3000/login', {
             email: e.target[0].value,
             password: e.target[1].value
+        },{
+            mode: "no-cors"
         })
             .then(function (response) {
                 setLoading(true)
