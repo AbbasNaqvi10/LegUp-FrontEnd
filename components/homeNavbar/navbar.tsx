@@ -1,4 +1,5 @@
-import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
+import { Navbar, Link, Text, Avatar, Dropdown, Button } from "@nextui-org/react";
+
 // import { Layout } from "./Layout.js";
 // import { AcmeLogo } from "./AcmeLogo.js";
 
@@ -31,7 +32,7 @@ export default function App() {
         enableCursorHighlight
         activeColor="secondary"
         hideIn="xs"
-        // variant="highlight-rounded"
+      // variant="highlight-rounded"
       >
         <Navbar.Link isActive href="#">
           Home
@@ -75,7 +76,14 @@ export default function App() {
           </Navbar.CollapseItem>
         ))}
       </Navbar.Collapse>
-    </Navbar>
+      <Link
+        href="/account/login"
+      >
+        <Button className="rounded-lg bg-blue-900 text-white border-2 border-blue-900/100 hover:bg-blue-900 hover:shadow-xl hover:shadow-blue-900/80 cursor-pointer">
+          Join US
+        </Button>
+      </Link>
+    </Navbar >
     //</Layout>
   );
 }
