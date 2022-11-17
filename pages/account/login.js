@@ -1,26 +1,83 @@
-// import { LockClosedIcon } from '@heroicons/react/20/solid'
-import Link from 'next/link'
+import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react'
 import Router from 'next/router'
 
+import {
+    Card,
+    Spacer,
+    Button,
+    Text,
+    Input,
+    Row,
+    Checkbox,
+    Container,
+    useInput,
+} from '@nextui-org/react';
+
 export default function Login() {
 
-    const [data, setData] = useState();
+    const [data, setData] = useState({
+        email: "",
+        password: ""
+    });
     const [isLoading, setLoading] = useState(false)
-    const endpoint = 'http://localhost:8080/api/auth/signin'
+    const endpoint = 'http://localhost:3000/api/auth/signin'
+
+    const { emailValue, emailReset, emailBindings } = useInput("");
+    const { passwordValue, passwordReset, passwordBindings } = useInput("");
+
+    const validateEmail = (emailValue) => {
+        return emailValue.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
+    };
+
+    const validatePassword = (passwordValue) => {
+        return true;
+    };
+
+    const emailHelper = React.useMemo(() => {
+        if (!emailValue)
+            return {
+                text: "",
+                color: "",
+            };
+        const isValid = validateEmail(emailValue);
+        return {
+            text: isValid ? "" : "Enter a valid email",
+            color: isValid ? "success" : "error",
+        };
+    }, [emailValue]);
+
+    const passwordHelper = React.useMemo(() => {
+        if (!passwordValue)
+            return {
+                text: "",
+                color: "",
+            };
+        const isValid = validatePassword(passwordValue);
+        return {
+            text: isValid ? "" : "Enter a valid password",
+            color: isValid ? "success" : "error",
+        };
+    }, [passwordValue]);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const setUser = {
-            username: e.target.username.value,
-            password: e.target.password.value
-        }
-        console.log(setUser)
+        // const setUser = {
+        //     ElementInternals: e.target.ElementInternals.value,
+        //     password: e.target.password.value
+        // }
+        setData.email = e.target[0].value
+        setData.password = e.target[1].value
+        console.log(data)
+        console.log(e.target[0].value + e.target[1].value)
+        //console.log(setUser)
 
-        axios.post('http://localhost:8080/api/auth/signin', {
-            username: setUser.username,
-            password: setUser.password
+        axios.post('http://localhost:3000/login', {
+            email: e.target[0].value,
+            password: e.target[1].value
+        },{
+            mode: "no-cors"
         })
             .then(function (response) {
                 setLoading(true)
@@ -36,84 +93,72 @@ export default function Login() {
     if (isLoading) return <p>Loading...</p>
     //if (!data) return <p>No profile data</p>
 
+
     return (
         <>
-            <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div className="w-full max-w-md space-y-8">
-                    <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">LegUp</h1>
-                    <div>
-                        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                            Sign in to your account
-                        </h2>
-                    </div>
-                    <form className="mt-8 space-y-6" onSubmit={handleSubmit} method="POST">
-                        <input type="hidden" name="remember" defaultValue="true" />
-                        <div className="-space-y-px rounded-md shadow-sm">
-                            <div>
-                                <label htmlFor="username" className="sr-only">
-                                    Username
-                                </label>
-                                <input
-                                    id="username"
-                                    name="username"
-                                    type="text"
-                                    autoComplete="username"
-                                    required
-                                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Username"
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="password" className="sr-only">
-                                    Password
-                                </label>
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    autoComplete="current-password"
-                                    required
-                                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Password"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="flex items-center justify-between">
-                            {/* <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
-                </label>
-              </div> */}
-
-                            <div className="text-sm">
-                                <a href="/account/registration" className="font-medium text-indigo-600 rounded-md border border-transparent hover:text-indigo-500">Register</a>
-                                {/* <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                  Forgot your password?
-                </a> */}
-                            </div>
-                        </div>
-
-                        <div>
-                            <button
-                                type="submit"
-                                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <Container
+                        display="flex"
+                        alignItems="center"
+                        justify="center"
+                        css={{ minHeight: '100vh' }}
+                    >
+                        <Card css={{ mw: '420px', p: '20px' }} variant="bordered">
+                            <Text
+                                size={24}
+                                weight="bold"
+                                css={{
+                                    as: 'center',
+                                    mb: '20px',
+                                }}
                             >
-                                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    {/* <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" /> */}
-                                </span>
+                                LegUp Login
+                            </Text>
+                            <Spacer y={1} />
+                            <Input
+                                {...emailBindings}
+                                status={emailHelper.color}
+                                color={emailHelper.color}
+                                helperColor={emailHelper.color}
+                                helperText={emailHelper.text}
+                                type='email'
+                                required
+                                underlined
+                                fullWidth
+                                size="lg"
+                                labelPlaceholder="Email"
+                                css={{ mb: '10px' }}
+                            />
+                            <Spacer y={1} />
+                            <Input.Password
+                                {...passwordBindings}
+                                status={passwordHelper.color}
+                                color={passwordHelper.color}
+                                helperColor={passwordHelper.color}
+                                helperText={passwordHelper.text}
+                                underlined
+                                required
+                                fullWidth
+                                size="lg"
+                                labelPlaceholder="Password"
+                                css={{ mb: '10px' }}
+                            />
+                            <Spacer y={1} />
+                            <Row justify="space-between">
+                                <Checkbox>
+                                    <Text size={14}>Remember me</Text>
+                                </Checkbox>
+                                <Text size={14}>Forgot password?</Text>
+                            </Row>
+                            <Spacer y={1} />
+                            <Button type='submit' className='bg-blue-700 hover:shadow-xl hover:shadow-blue-900/80 cursor-pointer' shadow auto>
                                 Sign in
-                            </button>
-                        </div>
-                    </form>
+                            </Button>
+                            <Spacer y={1} />
+                        </Card>
+                    </Container>
                 </div>
-            </div>
-        </>
-    )
+            </form></>
+    );
 }
