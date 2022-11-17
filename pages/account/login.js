@@ -73,7 +73,7 @@ export default function Login() {
         console.log(e.target[0].value + e.target[1].value)
         //console.log(setUser)
 
-        axios.post('http://localhost:3000/login', {
+        axios.post('http://localhost:3001/login', {
             email: e.target[0].value,
             password: e.target[1].value
         },{

@@ -1,8 +1,11 @@
 import { Dropdown, Button, Input } from "@nextui-org/react";
-import { useRef } from "react";
+import { useState, useRef } from "react";
+import axios from 'axios';
 
 export default function FileUpload() {
   const inputRef = useRef(null);
+  const [isLoading, setLoading] = useState(false)
+  if (isLoading) return <p>Loading...</p>
 
   const handleClick = () => {
     inputRef.current.click();
@@ -10,7 +13,26 @@ export default function FileUpload() {
 
   const handleFileChange = (event) => {
     const fileObj = event.target.files && event.target.files[0];
-    if (!fileObj) {
+    console.log(event)
+    console.log(event.target.files)
+    if (fileObj) {
+      axios.post('http://localhost:3001/fileUpload', {
+        files: event.target.files[0]
+      },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'mode': 'no-cors'
+          }
+        })
+        .then(function (response) {
+          setLoading(true)
+          console.log(response);
+          setLoading(false)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       return;
     }
   };
@@ -30,7 +52,7 @@ export default function FileUpload() {
         onChange={handleFileChange}
       />
       <Dropdown>
-        <Dropdown.Button flat light>Upload File</Dropdown.Button>
+        <Dropdown.Button flat className="bg-blue-700 text-white hover:shadow-2xl hover:bg-blue-900">Upload File</Dropdown.Button>
         {/* <Dropdown.Menu aria-label="Actions">
           <Dropdown.Item key="new">
             <Button light color="primary" auto onClick={handleClick}>Open file upload box</Button>
