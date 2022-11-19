@@ -4,6 +4,7 @@ import axios from 'axios';
 
 export default function FileUpload() {
   const inputRef = useRef(null);
+  let [file, loadFiles] = useState([])
   const [isLoading, setLoading] = useState(false)
   if (isLoading) return <p>Loading...</p>
 
@@ -12,13 +13,15 @@ export default function FileUpload() {
   };
 
   const handleFileChange = (event) => {
+
+    data.append('file', event.target.files[0]);
+
     const fileObj = event.target.files && event.target.files[0];
-    console.log(event)
-    console.log(event.target.files)
+    loadFiles(arr => [...arr, event.target.files[0]])
     if (fileObj) {
-      axios.post('http://localhost:3001/fileUpload', {
-        files: event.target.files[0]
-      },
+      axios.post('http://localhost:3001/fileUpload',
+        {files:file}
+        ,
         {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -50,6 +53,7 @@ export default function FileUpload() {
         ref={inputRef}
         type="file"
         onChange={handleFileChange}
+        multiple
       />
       <Dropdown>
         <Dropdown.Button flat className="bg-blue-700 text-white hover:shadow-2xl hover:bg-blue-900">Upload File</Dropdown.Button>
