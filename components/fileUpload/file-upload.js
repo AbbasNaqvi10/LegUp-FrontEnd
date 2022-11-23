@@ -3,41 +3,49 @@ import { useState, useRef } from "react";
 import axios from 'axios';
 
 export default function FileUpload() {
-  const inputRef = useRef(null);
-  let [file, loadFiles] = useState([])
+  const appleInputRef = useRef(null);
+  const facebookInputRef = useRef(null);
+  const amazonInputRef = useRef(null);
+  const [appleFile, uploadtAplleFiles] = useState([])
+  const [facebookFile, uploadtFacebookFiles] = useState([])
+  const [amazonFile, uploadtAmazonFiles] = useState([])
+  const [uploadButton, showUploadButton] = useState(false)
   const [isLoading, setLoading] = useState(false)
   if (isLoading) return <p>Loading...</p>
 
-  const handleClick = () => {
-    inputRef.current.click();
+  const handleClick = (e) => {
+    e.target.innerText == "Apple File" ? appleInputRef.current.click() : e.target.innerText == "Facebook File" ? facebookInputRef.current.click() : e.target.innerText == "Amazon File" ? amazonInputRef.current.click() : false
   };
 
   const handleFileChange = (event) => {
 
-    data.append('file', event.target.files[0]);
+    event.name == "Apple" ? uploadtAplleFiles(arr => [[...arr, event.target.files]]) : event.name == "Facebook" ? uploadtFacebookFiles(arr => [[...arr, event.target.files]]) : event.name == "Amazon" ? uploadtAmazonFiles(arr => [[...arr, event.target.files]]) : false
+    showUploadButton(true)
+    //console.log(event)
+    // data.append('file', event.target.files[0]);
 
-    const fileObj = event.target.files && event.target.files[0];
-    loadFiles(arr => [...arr, event.target.files[0]])
-    if (fileObj) {
-      axios.post('http://localhost:3001/fileUpload',
-        {files:file}
-        ,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'mode': 'no-cors'
-          }
-        })
-        .then(function (response) {
-          setLoading(true)
-          console.log(response);
-          setLoading(false)
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      return;
-    }
+    // const fileObj = event.target.files && event.target.files[0];
+    // loadFiles(arr => [...arr, event.target.files[0]])
+    // if (fileObj) {
+    //   axios.post('http://localhost:3001/fileUpload',
+    //     {files:file}
+    //     ,
+    //     {
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data',
+    //         'mode': 'no-cors'
+    //       }
+    //     })
+    //     .then(function (response) {
+    //       setLoading(true)
+    //       console.log(response);
+    //       setLoading(false)
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    //   return;
+    // }
   };
 
   const menuItems = [
@@ -50,10 +58,30 @@ export default function FileUpload() {
     <>
       <Input
         style={{ display: "none" }}
-        ref={inputRef}
+        ref={appleInputRef}
         type="file"
+        name="Apple"
         onChange={handleFileChange}
         multiple
+      // accept=".csv"
+      />
+      <Input
+        style={{ display: "none" }}
+        ref={facebookInputRef}
+        type="file"
+        name="Facebook"
+        onChange={handleFileChange}
+        multiple
+        accept=".csv"
+      />
+      <Input
+        style={{ display: "none" }}
+        ref={amazonInputRef}
+        type="file"
+        name="Amazon"
+        onChange={handleFileChange}
+        multiple
+        accept=".csv"
       />
       <Dropdown>
         <Dropdown.Button flat className="bg-blue-700 text-white hover:shadow-2xl hover:bg-blue-900">Upload File</Dropdown.Button>
@@ -78,6 +106,34 @@ export default function FileUpload() {
           )}
         </Dropdown.Menu>
       </Dropdown>
+      {
+        appleFile.length > 0 ? <div>
+          <p>Apple:</p>
+          {
+            appleFile.map((file) => {
+              <div>{file}</div>
+            })
+          }
+        </div>
+          : facebookFile.length > 0 ? <div>
+            <p>Facebook:</p>
+            {
+              facebookFile.map((file) => {
+                <div>{file}</div>
+              })
+            }
+          </div>
+            : amazonFile.length > 0 ? <div>
+              <p>Amazon:</p>
+              {
+                amazonFile.map((file) => {
+                  <div>{file}</div>
+                })
+              }
+            </div>
+              : false
+      }
+      {uploadButton ? <Button className="bg-blue-700 m-2 text-white hover:shadow-2xl hover:bg-blue-900">Upload</Button> : false}
     </>
   );
 }
