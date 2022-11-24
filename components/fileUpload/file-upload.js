@@ -3,12 +3,16 @@ import { useState, useRef } from "react";
 import axios from 'axios';
 
 export default function FileUpload() {
+
+  let appleFiles = []
+  let facebookFiles = []
+  let amazonFiles = []
   const appleInputRef = useRef(null);
   const facebookInputRef = useRef(null);
   const amazonInputRef = useRef(null);
-  const [appleFile, uploadtAplleFiles] = useState([])
-  const [facebookFile, uploadtFacebookFiles] = useState([])
-  const [amazonFile, uploadtAmazonFiles] = useState([])
+  const [appleFile, uploadtAppleFiles] = useState()
+  const [facebookFile, uploadtFacebookFiles] = useState()
+  const [amazonFile, uploadtAmazonFiles] = useState()
   const [uploadButton, showUploadButton] = useState(false)
   const [isLoading, setLoading] = useState(false)
   if (isLoading) return <p>Loading...</p>
@@ -18,35 +22,52 @@ export default function FileUpload() {
   };
 
   const handleFileChange = (event) => {
-
-    event.name == "Apple" ? uploadtAplleFiles(arr => [[...arr, event.target.files]]) : event.name == "Facebook" ? uploadtFacebookFiles(arr => [[...arr, event.target.files]]) : event.name == "Amazon" ? uploadtAmazonFiles(arr => [[...arr, event.target.files]]) : false
-    showUploadButton(true)
-    //console.log(event)
-    // data.append('file', event.target.files[0]);
-
-    // const fileObj = event.target.files && event.target.files[0];
-    // loadFiles(arr => [...arr, event.target.files[0]])
-    // if (fileObj) {
-    //   axios.post('http://localhost:3001/fileUpload',
-    //     {files:file}
-    //     ,
-    //     {
-    //       headers: {
-    //         'Content-Type': 'multipart/form-data',
-    //         'mode': 'no-cors'
-    //       }
-    //     })
-    //     .then(function (response) {
-    //       setLoading(true)
-    //       console.log(response);
-    //       setLoading(false)
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    //   return;
-    // }
+    if (event.target.name == "Apple") {
+      Object.values(event.target.files).map(file => {
+        appleFiles.push(file)
+      })
+      uploadtAppleFiles(appleFiles)
+      showUploadButton(true)
+    }
+    else if (event.target.name == "Facebook") {
+      Object.values(event.target.files).map(file => {
+        facebookFiles.push(file)
+      })
+      uploadtFacebookFiles(facebookFiles)
+      showUploadButton(true)
+    }
+    else if (event.target.name == "Amazon") {
+      Object.values(event.target.files).map(file => {
+        amazonFiles.push(file)
+      })
+      uploadtAmazonFiles(amazonFiles)
+      showUploadButton(true)
+      console.log(appleFile)
+    }
   };
+
+  const uploadFiles = (files) => {
+    if (files) {
+      axios.post('http://localhost:3001/fileUpload',
+        { files: files }
+        ,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'mode': 'no-cors'
+          }
+        })
+        .then(function (response) {
+          setLoading(true)
+          console.log(response);
+          setLoading(false)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      return;
+    }
+  }
 
   const menuItems = [
     { key: "apple", name: "Apple File" },
@@ -72,7 +93,7 @@ export default function FileUpload() {
         name="Facebook"
         onChange={handleFileChange}
         multiple
-        accept=".csv"
+      // accept=".csv"
       />
       <Input
         style={{ display: "none" }}
@@ -81,21 +102,10 @@ export default function FileUpload() {
         name="Amazon"
         onChange={handleFileChange}
         multiple
-        accept=".csv"
+      // accept=".csv"
       />
       <Dropdown>
         <Dropdown.Button flat className="bg-blue-700 text-white hover:shadow-2xl hover:bg-blue-900">Upload File</Dropdown.Button>
-        {/* <Dropdown.Menu aria-label="Actions">
-          <Dropdown.Item key="new">
-            <Button light color="primary" auto onClick={handleClick}>Open file upload box</Button>
-          </Dropdown.Item>
-          <Dropdown.Item key="copy">Copy link</Dropdown.Item>
-        <Dropdown.Item key="edit">Edit file</Dropdown.Item>
-        <Dropdown.Item key="delete" color="error" withDivider>
-          Delete file
-        </Dropdown.Item>
-        </Dropdown.Menu> */}
-
         <Dropdown.Menu aria-label="Dynamic Actions" items={menuItems}>
           {(item) => (
             <Dropdown.Item key={item.key}>
@@ -106,7 +116,7 @@ export default function FileUpload() {
           )}
         </Dropdown.Menu>
       </Dropdown>
-      {
+      {/* {
         appleFile.length > 0 ? <div>
           <p>Apple:</p>
           {
@@ -132,8 +142,8 @@ export default function FileUpload() {
               }
             </div>
               : false
-      }
-      {uploadButton ? <Button className="bg-blue-700 m-2 text-white hover:shadow-2xl hover:bg-blue-900">Upload</Button> : false}
+      } */}
+      {uploadButton ? <Button className="bg-blue-700 m-2 text-white hover:shadow-2xl hover:bg-blue-900" onClick={uploadFiles([appleFile, facebookFile, amazonFile])}>Upload</Button> : false}
     </>
   );
 }
